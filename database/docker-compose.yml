@@ -1,0 +1,58 @@
+version: "1"
+services:
+  mysqlmaster:
+    container_name: mysqlmaster
+    image: mysql:latest
+    hostname: mysqlmaster
+    ports:
+      - 3308:3308
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --log-bin='mysql-bin-1.log' --relay_log_info_repository=TABLE --master-info-repository=TABLE --gtid-mode=ON --enforce-gtid-consistency --log-slave-updates=ON
+    networks:
+      - proxysql-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: passer123
+      MYSQL_DATABASE: hoteldb
+      MYSQL_USER: tidiani
+      MYSQL_PASSWORD: passer123
+  firstslave:
+    container_name: firstslave
+    image: mysql:latest
+    hostname: firstslave
+    ports:
+      - 3307:3307
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --relay_log_info_repository=TABLE --master-info-repository=TABLE --gtid-mode=ON --enforce-gtid-consistency --skip-log-slave-updates --skip-log-bin --read_only=TRUE
+    networks:
+      - proxysql-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: passer123
+      MYSQL_DATABASE: hoteldb
+      MYSQL_USER: tidiani
+      MYSQL_PASSWORD: passer123
+  secondslave:
+    container_name: secondslave
+    image: mysql:latest
+    hostname: secondslave
+    ports:
+      - 3309:3309
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --relay_log_info_repository=TABLE --master-info-repository=TABLE --gtid-mode=ON --enforce-gtid-consistency --skip-log-slave-updates --skip-log-bin --read_only=TRUE
+    networks:
+      - proxysql-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: passer123
+      MYSQL_DATABASE: hoteldb
+      MYSQL_USER: tidiani
+      MYSQL_PASSWORD: passer123
+  proxysql:
+    image: proxysql/proxysql:latest
+    volumes: 
+    - "./proxysql.cnf:/etc/proxysql.cnf"
+    - "./proxysql:/var/lib/proxysql"
+    networks:
+      - proxysql-mysql
+    ports:
+    - "6033:6033"
+    - "6032:6032"
+    - "6080:6080"
+networks:
+  proxysql-mysql:
+    external: true
