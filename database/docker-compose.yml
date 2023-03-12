@@ -9,6 +9,9 @@ services:
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --log-bin='mysql-bin-1.log' --relay_log_info_repository=TABLE --master-info-repository=TABLE --gtid-mode=ON --enforce-gtid-consistency --log-slave-updates=ON
     networks:
       - proxysql-mysql
+    volumes:
+      - ./hotel_db_schema.sql:/docker-entrypoint-initdb.d/hotel_db_schema.sql
+      - ./mysqlmasterconfig.sql:/docker-entrypoint-initdb.d/mysqlmasterconfig.sql
     environment:
       MYSQL_ROOT_PASSWORD: passer123
       MYSQL_DATABASE: hoteldb
@@ -23,11 +26,16 @@ services:
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --relay_log_info_repository=TABLE --master-info-repository=TABLE --gtid-mode=ON --enforce-gtid-consistency --skip-log-slave-updates --skip-log-bin --read_only=TRUE
     networks:
       - proxysql-mysql
+    volumes:
+      - ./hotel_db_schema.sql:/docker-entrypoint-initdb.d/hotel_db_schema.sql
+      - ./mysqlslaveconfig.sql:/docker-entrypoint-initdb.d/mysqlslaveconfig.sql
     environment:
       MYSQL_ROOT_PASSWORD: passer123
       MYSQL_DATABASE: hoteldb
       MYSQL_USER: tidiani
       MYSQL_PASSWORD: passer123
+    depends_on:
+      - mysqlmaster
   secondslave:
     container_name: secondslave
     image: mysql:latest
@@ -37,11 +45,16 @@ services:
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --relay_log_info_repository=TABLE --master-info-repository=TABLE --gtid-mode=ON --enforce-gtid-consistency --skip-log-slave-updates --skip-log-bin --read_only=TRUE
     networks:
       - proxysql-mysql
+    volumes:
+      - ./hotel_db_schema.sql:/docker-entrypoint-initdb.d/hotel_db_schema.sql
+      - ./mysqlslaveconfig.sql:/docker-entrypoint-initdb.d/mysqlslaveconfig.sql
     environment:
       MYSQL_ROOT_PASSWORD: passer123
       MYSQL_DATABASE: hoteldb
       MYSQL_USER: tidiani
       MYSQL_PASSWORD: passer123
+    depends_on:
+      - mysqlmaster
   proxysql:
     image: proxysql/proxysql:latest
     volumes: 
@@ -53,6 +66,10 @@ services:
     - "6033:6033"
     - "6032:6032"
     - "6080:6080"
+    depends_on:
+      - mysqlmaster
+      - firstslave
+      - secondslave
 networks:
   proxysql-mysql:
     external: true
