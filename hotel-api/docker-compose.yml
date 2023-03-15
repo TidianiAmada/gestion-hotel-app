@@ -1,0 +1,64 @@
+version: "1"
+services:
+  mysqlmaster:
+    container_name: mysqlmaster
+    image: mysql:latest
+    hostname: mysqlmaster
+    ports:
+      - 3308:3306
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --log-bin='mysql-bin-1.log' --relay_log_info_repository=TABLE --master-info-repository=TABLE --gtid-mode=ON --enforce-gtid-consistency --log-replica-updates=ON --default-authentication-plugin=mysql_native_password
+    volumes:
+      - ./hotel_db_schema.sql:/docker-entrypoint-initdb.d/hotel_db_schema.sql
+      - ./mysqlmasterconfig.sql:/docker-entrypoint-initdb.d/mysqlmasterconfig.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: passer123
+      MYSQL_DATABASE: hoteldb
+      MYSQL_USER: tidiani
+      MYSQL_PASSWORD: passer123
+  firstslave:
+    container_name: firstslave
+    image: mysql:latest
+    hostname: firstslave
+    ports:
+      - 3307:3307
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --relay_log_info_repository=TABLE --master-info-repository=TABLE --gtid-mode=ON --enforce-gtid-consistency --skip-log-slave-updates --skip-log-bin --read_only=TRUE --default-authentication-plugin=mysql_native_password
+    volumes:
+      - ./hotel_db_schema.sql:/docker-entrypoint-initdb.d/hotel_db_schema.sql
+      - ./mysqlslaveconfig.sql:/docker-entrypoint-initdb.d/mysqlslaveconfig.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: passer123
+      MYSQL_DATABASE: hoteldb
+      MYSQL_USER: tidiani
+      MYSQL_PASSWORD: passer123
+    depends_on:
+      - mysqlmaster
+  secondslave:
+    container_name: secondslave
+    image: mysql:latest
+    hostname: secondslave
+    ports:
+      - 3309:3309
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --relay_log_info_repository=TABLE --master-info-repository=TABLE --gtid-mode=ON --enforce-gtid-consistency --skip-log-slave-updates --skip-log-bin --read_only=TRUE --default-authentication-plugin=mysql_native_password
+    volumes:
+      - ./hotel_db_schema.sql:/docker-entrypoint-initdb.d/hotel_db_schema.sql
+      - ./mysqlslaveconfig.sql:/docker-entrypoint-initdb.d/mysqlslaveconfig.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: passer123
+      MYSQL_DATABASE: hoteldb
+      MYSQL_USER: tidiani
+      MYSQL_PASSWORD: passer123
+    depends_on:
+      - mysqlmaster
+  proxysql:
+    image: proxysql/proxysql:latest
+    volumes: 
+    - "./proxysql.cnf:/etc/proxysql.cnf"
+    - "./proxysql:/var/lib/proxysql"
+    ports:
+    - "6033:6033"
+    - "6032:6032"
+    - "6080:6080"
+    depends_on:
+      - mysqlmaster
+      - firstslave
+      - secondslave
