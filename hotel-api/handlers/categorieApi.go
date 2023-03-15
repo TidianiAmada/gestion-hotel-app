@@ -23,10 +23,10 @@ func GetCategories(c *fiber.Ctx) error {
 }
 
 func GetCategorie(c *fiber.Ctx) error {
-	num:=c.Params("num")
+	id:=c.Params("id")
 	var categorie entities.Categorie
 
-	result:= configs.Database.Find(&categorie,num)
+	result:= configs.Database.Find(&categorie,id)
 	if result.RowsAffected==0 {
 		return c.SendStatus(404)
 	}
@@ -36,11 +36,11 @@ func GetCategorie(c *fiber.Ctx) error {
 /* 
 func UpdateCategorie(c *fiber.Ctx) {
 	categorie:=new(entities.Categorie)
-	num:=c.Params("num")
+	id:=c.Params("id")
 
 	if err :=c.BodyParser(categorie);err!=nil {
 		return c.Status(503).SendString(err.Error())
 	}
-	configs.Database.Where("num=?",num).Updates(&categorie)
+	configs.Database.Where("id=?",id).Updates(&categorie)
 	return c.Status(200).JSON(categorie)
 } */

@@ -2,7 +2,6 @@ package main
 
 import (
     "log"
-
     "hotel-api/configs"
     "hotel-api/handlers"
     "github.com/gofiber/fiber/v2"
@@ -37,7 +36,7 @@ func main() {
 
 	
 	app.Get("/reservations",handlers.GetReservations)
-	app.Get("/reservations/:num",handlers.GetReservation)
+	app.Get("/reservations/:id",handlers.GetReservation)
 	app.Post("/reservations",handlers.AddReservation)
 	//app.Put("/reservations",handlers.UpdateReservation)
 
