@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Connexion</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list class="form-login form-login-padding" style="margin-top: 20px; background: inherit;">
+
+    <ion-item>
+      <ion-label position="stacked">Email</ion-label>
+      <ion-input required [(ngModel)]="email" type="email" placeholder="Tapez votre email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Mot de passe</ion-label>
+      <ion-input required [(ngModel)]="mdp" type="password" placeholder="Tapez votre mot de passe"></ion-input>
+    </ion-item>
+
+  </ion-list>
+  <ion-button expand="block" class="form-login-padding" style="margin-top: 20px;" (click)="login()">
+    <ion-icon name="log-in-outline" style="margin-right: 10px;"></ion-icon>
+    Connexion
+  </ion-button>
+</ion-content>

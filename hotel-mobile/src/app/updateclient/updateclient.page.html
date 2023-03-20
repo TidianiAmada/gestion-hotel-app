@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Modifier client</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" [fullscreen]="true">
+  <ion-list>
+    <ion-item>
+      <ion-label position="stacked">Nom</ion-label>
+      <ion-input type="text" placeholder="N° Chambre" value="BARRY"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Prenom</ion-label>
+      <ion-input type="text" placeholder="Niveau" value="AUGUSTINE"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Telephone</ion-label>
+      <ion-input type="text" placeholder="Niveau" value="77 315 61 21"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Mail</ion-label>
+      <ion-input type="text" placeholder="N° Chambre" value="barry@gamil.com"></ion-input>
+    </ion-item>
+  </ion-list>
+  <ion-button (click)="updateclientformvalide()">
+    valider
+  </ion-button>
+</ion-content>
+

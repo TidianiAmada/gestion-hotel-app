@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Modifier chambre</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" [fullscreen]="true">
+  <ion-list>
+    <ion-item>
+      <ion-label position="stacked">N° Chambre</ion-label>
+      <ion-input type="text" placeholder="N° Chambre" value="232"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Niveau</ion-label>
+      <ion-input type="text" placeholder="Niveau" value="2"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Classe</ion-label>
+      <ion-input type="text" placeholder="N° Chambre" value="VIP"></ion-input>
+    </ion-item>
+  </ion-list>
+  <ion-button (click)="updatechambreformvalide()">
+    valider
+  </ion-button>
+</ion-content>

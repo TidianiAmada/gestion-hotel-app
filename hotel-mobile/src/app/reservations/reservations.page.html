@@ -1,0 +1,95 @@
+<div class="ion-page" id="main-content">
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Reservations</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content class="ion-padding" [fullscreen]="true">
+
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title">
+          <div class="d-flex justify-content-between">
+            <div><h5 class="card-title">Liste des reservations</h5></div>
+            <ion-button (click)="addreservationform()">
+              Ajouter une reservation
+            </ion-button>
+          </div>
+        </h5>
+      </div>
+      <div class="card-body">
+        <table class="table">
+          <thead class="table-dark">
+            <tr>
+              <th>Client</th>
+              <th>N° Chambre</th>
+              <th>Date d'entrée</th>
+              <th>Nuitée</th>
+              <th>Montant TTC</th>
+              <th style="width: 50px;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Elhadj</td>
+              <td>003</td>
+              <td>20/02/2023</td>
+              <td>7</td>
+              <td>300000</td>
+              <td>
+                <ion-button size="small" fill="clear" class="m-0 p-0"  (click)="deletereservation()">
+                  <ion-icon name="trash-outline"></ion-icon>
+                </ion-button>
+              </td>
+            </tr>
+            <tr>
+              <td>Augustine Barry</td>
+              <td>001</td>
+              <td>20/02/2023</td>
+              <td>7</td>
+              <td>20000</td>
+              <td>
+                <ion-button size="small" fill="clear" class="m-0 p-0"  (click)="deletereservation()">
+                  <ion-icon name="trash-outline"></ion-icon>
+                </ion-button>
+              </td>
+            </tr>
+            <tr>
+              <td>Lassana</td>
+              <td>001</td>
+              <td>20/02/2023</td>
+              <td>7</td>
+              <td>90000</td>
+              <td>
+                <ion-button size="small" fill="clear" class="m-0 p-0"  (click)="deletereservation()">
+                  <ion-icon name="trash-outline"></ion-icon>
+                </ion-button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </ion-content>
+</div>
+<ion-menu contentId="main-content" type="overlay">
+  <ion-content>
+    <ion-list id="inbox-list">
+      <ion-list-header><h3 class="text-center w-100">Logiciel Gestion Hotel</h3></ion-list-header>
+      <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
+        <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
+          <ion-icon aria-hidden="true" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+          <ion-label>{{ p.title }}</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+    </ion-list>
+  </ion-content>
+  <ion-button (click)="deconnexion()">
+    <ion-icon name="log-in-outline" style="margin-right: 10px;"></ion-icon>
+    Deconnexion
+  </ion-button>
+</ion-menu>

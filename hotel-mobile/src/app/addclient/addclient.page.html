@@ -1,0 +1,54 @@
+
+<div class="ion-page" id="main-content">
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Ajouter client</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content class="ion-padding" [fullscreen]="true">
+    <ion-list>
+      <ion-item>
+        <ion-label name="nom" position="stacked">Nom</ion-label>
+        <ion-input name="nom" type="text" placeholder="Nom"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label name="prenom" position="stacked">Prenom</ion-label>
+        <ion-input name="prenom" type="text" placeholder="Prenom"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label name="telephone" position="stacked">Telephone</ion-label>
+        <ion-input name="telephone" type="text" placeholder="Telephone"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Mail</ion-label>
+        <ion-input type="text" placeholder="Mail"></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-button (click)="addClient()">
+      valider
+    </ion-button>
+  </ion-content>
+</div>
+
+<ion-menu contentId="main-content" type="overlay">
+  <ion-content>
+    <ion-list id="inbox-list">
+      <ion-list-header><h3 class="text-center w-100">Logiciel Gestion Hotel</h3></ion-list-header>
+      <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
+        <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
+          <ion-icon aria-hidden="true" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+          <ion-label>{{ p.title }}</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+    </ion-list>
+  </ion-content>
+  <ion-button (click)="deconnexion()">
+    <ion-icon name="log-in-outline" style="margin-right: 10px;"></ion-icon>
+    Deconnexion
+  </ion-button>
+</ion-menu>
+

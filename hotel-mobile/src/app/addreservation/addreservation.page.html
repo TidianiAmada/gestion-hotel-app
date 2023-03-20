@@ -1,0 +1,88 @@
+
+<div class="ion-page" id="main-content">
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Ajouter une reservation</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content class="ion-padding" [fullscreen]="true">
+    <ion-list>
+      <ion-item>
+        <ion-label position="stacked">Client</ion-label>
+        <ion-select interface="popover" placeholder="Choisir un client">
+          <ion-select-option value="Cheikh Tidiane">Cheikh Tidiane</ion-select-option>
+          <ion-select-option value="Ndeye Barry">Ndeye Barry</ion-select-option>
+        </ion-select>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label position="stacked">Chambre</ion-label>
+        <ion-select interface="popover" placeholder="Choisir une chambre">
+          <ion-select-option value="001">001</ion-select-option>
+          <ion-select-option value="002">002</ion-select-option>
+          <ion-select-option value="003">003</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label class="mb-2" position="stacked">Date d'entrée</ion-label>
+        <ion-datetime-button datetime="datetime"></ion-datetime-button>
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime id="datetime"></ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Nuitée</ion-label>
+        <ion-input type="number" placeholder="Nuitée"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-checkbox slot="start"></ion-checkbox>
+        <ion-label>Bar</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-checkbox slot="start"></ion-checkbox>
+        <ion-label>Petit dejeuner</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Total</ion-label>
+        <ion-input type="number" placeholder="Total"></ion-input>
+      </ion-item>
+
+    </ion-list>
+    
+
+    
+    <ion-button (click)="addreservartionformvalide()">
+      valider
+    </ion-button>
+  </ion-content>
+</div>
+
+<ion-menu contentId="main-content" type="overlay">
+  <ion-content>
+    <ion-list id="inbox-list">
+      <ion-list-header><h3 class="text-center w-100">Logiciel Gestion Hotel</h3></ion-list-header>
+      <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
+        <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
+          <ion-icon aria-hidden="true" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+          <ion-label>{{ p.title }}</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+    </ion-list>
+  </ion-content>
+  <ion-button (click)="deconnexion()">
+    <ion-icon name="log-in-outline" style="margin-right: 10px;"></ion-icon>
+    Deconnexion
+  </ion-button>
+</ion-menu>
+

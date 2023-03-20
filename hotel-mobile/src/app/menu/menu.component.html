@@ -1,0 +1,17 @@
+<ion-menu contentId="main-content" type="overlay">
+  <ion-content>
+    <ion-list id="inbox-list">
+      <ion-list-header><h3 class="text-center w-100">Logiciel Gestion Hotel</h3></ion-list-header>
+      <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
+        <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
+          <ion-icon aria-hidden="true" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+          <ion-label>{{ p.title }}</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+    </ion-list>
+  </ion-content>
+  <ion-button (click)="deconnexion()">
+    <ion-icon name="log-in-outline" style="margin-right: 10px;"></ion-icon>
+    Deconnexion
+  </ion-button>
+</ion-menu>

@@ -1,0 +1,86 @@
+
+<app-menu></app-menu>
+<div class="ion-page" id="main-content">
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Chambres</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content class="ion-padding" [fullscreen]="true">
+
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title">
+          <div class="d-flex justify-content-between">
+            <div><h5 class="card-title">Liste des chambres</h5></div>
+            <ion-button (click)="addchambreform()">
+              Ajouter une chambre
+            </ion-button>
+          </div>
+        </h5>
+      </div>
+      <div class="card-body">
+        <table class="table">
+          <thead class="table-dark">
+            <tr>
+              <th>N° Chambre</th>
+              <th>Niveau</th>
+              <th>Classe</th>
+              <th>Etat</th>
+              <th style="width: 150px;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>001</td>
+              <td>2</td>
+              <td>VIP</td>
+              <td><span class="badge bg-success">Occuper</span></td>
+              <td>
+                <ion-button size="small" fill="clear" class="m-0 p-0 me-2"  (click)="updatechambreform()">
+                  <ion-icon name="create-outline"></ion-icon>
+                </ion-button>
+                <ion-button size="small" fill="clear" class="m-0 p-0"  (click)="deletechambre()">
+                  <ion-icon name="trash-outline"></ion-icon>
+                </ion-button>
+              </td>
+            </tr>
+            <tr>
+              <td>002</td>
+              <td>2</td>
+              <td>VIP</td>
+              <td><span class="badge bg-primary">Libre</span></td>
+              <td>
+                <ion-button size="small" fill="clear" class="m-0 p-0 me-2"  (click)="updatechambreform()">
+                  <ion-icon name="create-outline"></ion-icon>
+                </ion-button>
+                <ion-button size="small" fill="clear" class="m-0 p-0"  (click)="deletechambre()">
+                  <ion-icon name="trash-outline"></ion-icon>
+                </ion-button>
+              </td>
+            </tr>
+            <tr>
+              <td>003</td>
+              <td>2</td>
+              <td>VIP</td>
+              <td><span class="badge bg-warning">Reserver</span></td>
+              <td>
+                <ion-button size="small" fill="clear" class="m-0 p-0 me-2"  (click)="updatechambreform()">
+                  <ion-icon name="create-outline"></ion-icon>
+                </ion-button>
+                <ion-button size="small" fill="clear" class="m-0 p-0"  (click)="deletechambre()">
+                  <ion-icon name="trash-outline"></ion-icon>
+                </ion-button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </ion-content>
+</div>
+

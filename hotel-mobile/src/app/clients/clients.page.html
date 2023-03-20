@@ -1,0 +1,112 @@
+
+<div class="ion-page" id="main-content">
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Clients</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content class="ion-padding" [fullscreen]="true">
+    <div class="card">
+      <div class="card-header">
+
+        
+        <div class="d-flex justify-content-between">
+          <div><h5 class="card-title">Liste des clients</h5></div>
+          <ion-button (click)="addclientform()">
+            Ajouter un client
+          </ion-button>
+        </div>
+      </div>
+      <div>
+        <table class="table">
+          <thead class="table-dark">
+            <tr>
+              <th>Prenom</th>
+              <th>Nom</th>
+              <th>Telephone</th>
+              <th>Email</th>
+              <th>Etat</th>
+              <th style="width: 150px;"></th>
+            </tr>
+          </thead>
+        <tbody *ngFor="let client of clients">
+              <tr>
+                <td>{{client.nom}}</td>
+                <td>{{client.prenom}}</td>
+                <td>{{client.telephone}}</td>
+              </tr>          
+
+        </tbody> 
+         </table>
+      </div>
+      <div class="card-body">
+        <table class="table">
+          <thead class="table-dark">
+            <tr>
+              <th>Prenom</th>
+              <th>Nom</th>
+              <th>Telephone</th>
+              <th>Email</th>
+              <th>Etat</th>
+              <th style="width: 150px;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Cheikh</td>
+              <td>Tidiane</td>
+              <td>77 339 20 35</td>
+              <td>cheikhtidiani@gmail.com</td>
+              <td><span class="badge bg-success">Occupant</span></td>
+              <td>
+                <ion-button size="small" fill="clear" class="m-0 p-0 me-2"  (click)="updateclientform()">
+                  <ion-icon name="create-outline"></ion-icon>
+                </ion-button>
+                <ion-button size="small" fill="clear" class="m-0 p-0"  (click)="deleteclient()">
+                  <ion-icon name="trash-outline"></ion-icon>
+                </ion-button>
+              </td>
+            </tr>
+            <tr>
+              <td>Augus</td>
+              <td>Barry</td>
+              <td>77 315 61 21</td>
+              <td>Augubarry@gmail.com</td>
+              <td><span class="badge bg-warning">Reserver</span> </td>
+              <td>
+                <ion-button size="small" fill="clear" class="m-0 p-0 me-2"  (click)="updateclientform()">
+                  <ion-icon name="create-outline"></ion-icon>
+                </ion-button>
+                <ion-button size="small" fill="clear" class="m-0 p-0"  (click)="deleteclient()">
+                  <ion-icon name="trash-outline"></ion-icon>
+                </ion-button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </ion-content>
+</div>
+
+<ion-menu contentId="main-content" type="overlay">
+  <ion-content>
+    <ion-list id="inbox-list">
+      <ion-list-header><h3 class="text-center w-100">Logiciel Gestion Hotel</h3></ion-list-header>
+      <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
+        <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
+          <ion-icon aria-hidden="true" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+          <ion-label>{{ p.title }}</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+    </ion-list>
+  </ion-content>
+  <ion-button (click)="deconnexion()">
+    <ion-icon name="log-in-outline" style="margin-right: 10px;"></ion-icon>
+    Deconnexion
+  </ion-button>
+</ion-menu>
